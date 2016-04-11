@@ -1,0 +1,4 @@
+In order to play the scale, copy these three files into your local
+STK folder (stk-4.5.1/projects/examples). The Makefile and libMakefile
+can overwrite the ones already there, they just add in a rule to make
+playscales.cpp. Then run ./playscales to hear the final product!
