@@ -106,19 +106,15 @@ void close()
 	SDL_Quit();
 }
 
-SDL_Texture* loadTexture( std::string path )
-{
+SDL_Texture* loadTexture( std::string path ){
 	//The final texture
 	SDL_Texture* newTexture = NULL;
-
 	//Load image at specified path
 	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
-	if( loadedSurface == NULL )
-	{
+	if( loadedSurface == NULL ){
 		printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
 	}
-	else
-	{
+	else{
 		//Create texture from surface pixels
         newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );
 		if( newTexture == NULL )
@@ -161,8 +157,8 @@ void drawPiano(){
   SDL_RenderFillRect (gRenderer, &sharp2);                                                                                         
   SDL_RenderFillRect (gRenderer, &sharp3);                                                                                         
   SDL_RenderFillRect (gRenderer, &sharp4);                                                                                         
-  SDL_RenderFillRect (gRenderer, &sharp5);                                                                                         
-  SDL_RenderFillRect (gRenderer, &sharp6);                                                                                         
+  SDL_RenderFillRect (gRenderer, &sharp5);
+  SDL_RenderFillRect (gRenderer, &sharp6);
   SDL_RenderFillRect (gRenderer, &sharp7);
 }
 //doesn't work
@@ -171,25 +167,30 @@ void highlightPiano(int letter){
     SDL_Rect colorA = { 30, 30, 60, 450 };
     SDL_SetRenderDrawColor (gRenderer, 0xFF, 0x00, 0x00, 0xFF);
     SDL_RenderFillRect (gRenderer, &colorA);
+
+    SDL_Rect sharp1 = {75, 30, 30, 281};
+    SDL_SetRenderDrawColor( gRenderer, 0, 0, 100, 100);
+    SDL_RenderFillRect (gRenderer, &sharp1);
+    
+    //SDL_Delay(500);
   }
+  //SDL_RenderPresent(gRenderer);
+  SDL_Delay(500);
+  //SDL_RenderClear(gRenderer);
+  drawPiano();
 }
 
-int main( int argc, char* args[] )
-{
+int main( int argc, char* args[] ){
 	//Start up SDL and create window
-	if( !init() )
-	{
+  if( !init() ){
 		printf( "Failed to initialize!\n" );
-	}
-	else
-	{
+  }
+	else{
 		//Load media
-		if( !loadMedia() )
-		{
+		if( !loadMedia() ){
 			printf( "Failed to load media!\n" );
 		}
-		else
-		{	
+		else{	
 			//Main loop flag
 			bool quit = false;
 
@@ -202,32 +203,25 @@ int main( int argc, char* args[] )
 			while( !quit )
 			{
 				//Handle events on queue
-				while( SDL_PollEvent( &e ) != 0 )
-				{
+				while( SDL_PollEvent( &e ) != 0 ){
 					//User requests quit
 				  if( e.type == SDL_QUIT || (e.key.keysym.sym==SDLK_q)){
 						quit = true;
-					}
-				  if( e.key.keysym.sym == SDLK_a){
-				    whichKey=1;
-				    highlightPiano(whichKey);
 				  }
 				}
-
 				//Clear screen
 				SDL_SetRenderDrawColor( gRenderer, 255, 255, 255, 255);
 				SDL_RenderClear( gRenderer );
 				
 				drawPiano();
-
-				/*if(SDL_PollEvent(&e) != 0){
-				  // highlightPiano(e.key.keysym.sym);
-				  if (e.key.keysym.sym == SDLK_a){
-				    whichKey = 1;
-				    highlightPiano(whichKey);
-				  }
-				  }*/
-
+				switch(e.key.keysym.sym){
+				  case 'a':
+				    highlightPiano(1);
+				    break;
+				  case 's':
+			            highlightPiano(2);
+			            break;
+			        }
 				//Update screen
 				SDL_RenderPresent( gRenderer );
 			}
