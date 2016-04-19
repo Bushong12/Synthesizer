@@ -7,8 +7,8 @@ and may not be redistributed without written permission.*/
 #include <stdio.h>
 #include <string>
 #include <cmath>
-#include "SineWave.h"
-#include "RtWvOut.h"
+#include "stk/SineWave.h"
+#include "stk/RtWvOut.h"
 #include <cstdlib>
 
 //Screen dimension constants
