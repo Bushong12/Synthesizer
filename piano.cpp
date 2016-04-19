@@ -7,6 +7,9 @@ and may not be redistributed without written permission.*/
 #include <stdio.h>
 #include <string>
 #include <cmath>
+#include "SineWave.h"
+#include "RtWvOut.h"
+#include <cstdlib>
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 700;
@@ -181,7 +184,23 @@ void highlightPiano(int letter){
 }
 
 int main( int argc, char* args[] ){
-	//Start up SDL and create window
+// Set the global sample rate before creating class instances.
+  Stk::setSampleRate( 44100.0 );
+  Stk::showWarnings( true );
+
+  int nFrames = 100000;
+  SineWave sine;
+  RtWvOut *dac = 0;
+
+  try {
+  // Define and open the default realtime output device for one-channel playback
+    dac = new RtWvOut( 1 );
+  }
+  catch ( StkError & ) {
+    exit( 1 );
+  }
+
+  //Start up SDL and create window
   if( !init() ){
 		printf( "Failed to initialize!\n" );
   }
@@ -217,9 +236,31 @@ int main( int argc, char* args[] ){
 				switch(e.key.keysym.sym){
 				  case 'a':
 				    highlightPiano(1);
+				    // play a C
+					sine.setFrequency( 523.25 );
+
+					for ( int i=0; i<nFrames; i++ ) {
+    					try {
+      						dac->tick( sine.tick() );
+     					}
+    					catch ( StkError & ) {
+      						goto cleanup;
+    					}
+  					}  
 				    break;
 				  case 's':
 			            highlightPiano(2);
+			            // play a D
+						sine.setFrequency( 587.33 );
+
+    					for ( int i=0; i<nFrames; i++ ) {
+    						try {
+      							dac->tick( sine.tick() );
+     						}
+    						catch ( StkError & ) {
+      							goto cleanup;
+    						}
+  						}
 			            break;
 			        }
 				//Update screen
