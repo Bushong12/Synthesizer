@@ -11,6 +11,8 @@ and may not be redistributed without written permission.*/
 #include "stk/RtWvOut.h"
 #include <cstdlib>
 
+using namespace stk;
+
 //Screen dimension constants
 const int SCREEN_WIDTH = 700;
 const int SCREEN_HEIGHT = 500;
@@ -272,5 +274,8 @@ int main( int argc, char* args[] ){
 	//Free resources and close SDL
 	close();
 
+ cleanup:
+  delete dac;
+  
 	return 0;
 }

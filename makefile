@@ -1,9 +1,10 @@
 STKFLAG=-lstk
-SDLFLAG=-lSDL -lSDL2_image
+SDLFLAG= -w -lSDL2 -lSDL2_image
 
 all: piano
 
 piano: piano.cpp
-	g++ $^ $(SDLFLAG) $(STKFLAG)-o $@
+	g++ piano.cpp $(SDLFLAG) $(STKFLAG) -o piano
+
 clean:
 	rm piano
