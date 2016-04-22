@@ -21,7 +21,7 @@ Record::Record(){
 	catch (StkError &){
 		exit(1);
 	}
-
+	//add frequencies
 	Notes["a"]=1;
 	Notes["s"]=1;
 	Notes["d"]=2;
