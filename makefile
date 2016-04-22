@@ -1,5 +1,5 @@
 STKFLAG=-lstk
-SDLFLAG=-lSDL -lSDL2_image
+SDLFLAG= -w -lSDL2 -lSDL2_image
 
 all: piano
 
