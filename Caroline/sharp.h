@@ -1,3 +1,6 @@
+#ifndef sharp_H
+#define sharp_H
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <stdio.h>
@@ -36,3 +39,5 @@ void Sharp::colorSharp(SDL_Renderer* gRenderer){
   SDL_SetRenderDrawColor(gRenderer, 0xFF, 0x00, 0x00, 0xFF);
   SDL_RenderFillRect(gRenderer, &color);
 }
+
+#endif
