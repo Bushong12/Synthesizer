@@ -53,5 +53,8 @@ distclean: clean
 strip : 
 	strip $(PROGRAMS)
 
-piano: main.cpp Stk.o SineWave.o RtWvOut.o RtAudio.o Mutex.o key.h sharp.h piano.h
+main.o: main.cpp piano.h key.h sharp.h
+	g++ -c main.cpp
+
+piano: main.o Stk.o SineWave.o RtWvOut.o RtAudio.o Mutex.o
 	$(CC) $(LDFLAGS) -w -lSDL2 -lSDL2_image $(CFLAGS) $(DEFS) -o main main.cpp $(OBJECT_PATH)/Stk.o $(OBJECT_PATH)/SineWave.o $(OBJECT_PATH)/RtWvOut.o $(OBJECT_PATH)/RtAudio.o $(OBJECT_PATH)/Mutex.o $(LIBRARY)
