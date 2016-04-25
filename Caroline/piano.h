@@ -21,7 +21,7 @@ class Piano {
   void drawSharps(SDL_Renderer *);
   void drawWholePiano(SDL_Renderer *);
   void handleKeyPress(SDL_Renderer *, SDL_Event e);
-  void playtheNote(int freq);
+  void playtheNote(float freq);
  private:
 	Key keyOne;
 	Key keyTwo;
@@ -176,7 +176,7 @@ void Piano::handleKeyPress(SDL_Renderer* gRenderer, SDL_Event e){
   SDL_Delay(500);
 }
 
-void Piano::playtheNote(int freq){
+void Piano::playtheNote(float freq){
   // Sound Stuff:
   // Set the global sample rate before creating class instances.
   Stk::setSampleRate( 44100.0 );

@@ -4,12 +4,33 @@
 #include <string>
 #include <cmath>
 #include "piano.h"
+#include "stk/SineWave.h"
+#include "stk/RtWvOut.h"
+#include <cstdlib>
 
+using namespace stk;
 //Screen dimension constants                                                        \
                                                                                      
 const int SCREEN_WIDTH = 700;
 const int SCREEN_HEIGHT = 500;
 
+// Sound Stuff:
+  // Set the global sample rate before creating class instances.
+  Stk::setSampleRate( 44100.0 );
+  Stk::showWarnings( true );
+
+  int nFrames = 100000;
+  SineWave sine;
+  RtWvOut *dac = 0;
+
+  try {
+    // Define and open the default realtime output device for one-channel playback
+    dac = new RtWvOut( 1 );
+  }
+  catch ( StkError & ) {
+    exit( 1 );
+  }
+  
 //Starts up SDL and creates window                                                  \
                                                                                      
 bool init();
