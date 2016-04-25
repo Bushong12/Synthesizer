@@ -5,6 +5,11 @@
 #include <cmath>
 #include "key.h"
 #include "sharp.h"
+#include "stk/SineWave.h"
+#include "stk/RtWvOut.h"
+#include <cstdlib>
+
+using namespace stk;
 
 class Piano {
  public:
@@ -13,6 +18,7 @@ class Piano {
   void drawSharps(SDL_Renderer *);
   void drawWholePiano(SDL_Renderer *);
   void handleKeyPress(SDL_Renderer *, SDL_Event e);
+  void playtheNote(int freq);
  private:
 	Key keyOne;
 	Key keyTwo;
@@ -90,10 +96,13 @@ void Piano::drawWholePiano(SDL_Renderer* gRenderer){
 
 void Piano::handleKeyPress(SDL_Renderer* gRenderer, SDL_Event e){
   int value=0;
+
+  // case statement for key presses (color key and play sound)
   switch(e.key.keysym.sym){
-  case 'a':
+  case 'a': // Middle C (C4)
     keyOne.colorKey(gRenderer);
-    drawSharps(gRenderer); //might need to call this in color function?              
+    drawSharps(gRenderer); //might need to call this in color function? 
+    playtheNote(261.63);             
     break;
   case 's':
     keyTwo.colorKey(gRenderer);
@@ -162,4 +171,35 @@ void Piano::handleKeyPress(SDL_Renderer* gRenderer, SDL_Event e){
  }
   SDL_RenderPresent(gRenderer);
   SDL_Delay(500);
+}
+
+void Piano::playtheNote(int freq){
+  // Sound Stuff:
+  // Set the global sample rate before creating class instances.
+  Stk::setSampleRate( 44100.0 );
+  Stk::showWarnings( true );
+
+  int nFrames = 100000;
+  SineWave sine;
+  RtWvOut *dac = 0;
+
+  try {
+    // Define and open the default realtime output device for one-channel playback
+    dac = new RtWvOut( 1 );
+  }
+  catch ( StkError & ) {
+    exit( 1 );
+  }
+
+  // play a note of frequency "freq"
+  sine.setFrequency( freq );
+
+  for ( int i=0; i<nFrames; i++ ) {
+    try {
+      dac->tick( sine.tick() );
+     }
+    catch ( StkError & ) {
+      goto cleanup;
+    }
+  }
 }
