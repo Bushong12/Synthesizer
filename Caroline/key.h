@@ -1,3 +1,6 @@
+#ifndef key_H
+#define key_H
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <stdio.h>
@@ -36,3 +39,4 @@ void Key::colorKey(SDL_Renderer* gRenderer){
   SDL_SetRenderDrawColor(gRenderer, 0xFF, 0x00, 0x00, 0xFF);
   SDL_RenderFillRect(gRenderer, &color);
 }
+#endif
