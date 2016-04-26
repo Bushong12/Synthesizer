@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string>
 #include <cmath>
+#include "record.h"
 #include "piano.h"
 
 using namespace stk;
@@ -167,7 +168,6 @@ int main( int argc, char* args[] ){
       int whichKey;
       Piano myPiano(gRenderer);
 
-
       //While application is running                                                \
                                                                                      
       int startTime = SDL_GetTicks();
@@ -193,7 +193,7 @@ int main( int argc, char* args[] ){
           if(e.type == SDL_KEYDOWN){
             myPiano.handleKeyPress(gRenderer, e);
           }
-          int endTime = SDL_GetTicks() - startTime;
+          int totalTime = SDL_GetTicks() - startTime;
           SDL_RenderPresent(gRenderer);
           myPiano.drawWholePiano(gRenderer);
         }
