@@ -107,70 +107,85 @@ void Piano::handleKeyPress(SDL_Renderer* gRenderer, SDL_Event e){
     drawSharps(gRenderer); //might need to call this in color function? 
     playtheNote(261.63);             
     break;
-  case 's':
+  case 's': // D4
     keyTwo.colorKey(gRenderer);
     drawSharps(gRenderer);
+    playtheNote(293.66);
     break;
-  case 'd':
+  case 'd': // E4
     keyThree.colorKey(gRenderer);
     drawSharps(gRenderer);
+    playtheNote(329.63);
     break;
-  case 'f':
+  case 'f': // F4
     keyFour.colorKey(gRenderer);
     drawSharps(gRenderer);
+    playtheNote(349.23);
     break;
-  case 'g':
+  case 'g': // G4
     keyFive.colorKey(gRenderer);
     drawSharps(gRenderer);
+    playtheNote(392.00);
     break;
-  case 'h':
+  case 'h': // A4 (tuning pitch)
     keySix.colorKey(gRenderer);
     drawSharps(gRenderer);
     playtheNote(440.00);
     break;
-  case 'j':
+  case 'j': // B4
     keySeven.colorKey(gRenderer);
     drawSharps(gRenderer);
+    playtheNote(493.88);
     break;
-  case 'k':
+  case 'k': // C5
     keyEight.colorKey(gRenderer);
     drawSharps(gRenderer);
+    playtheNote(523.25);
     break;
-  case 'l':
+  case 'l': // D5
     keyNine.colorKey(gRenderer);
     drawSharps(gRenderer);
+    playtheNote(587.33);
     break;
-  case ';':
+  case ';': // E5
     keyTen.colorKey(gRenderer);
     drawSharps(gRenderer);
+    playtheNote(659.25);
     break;
-  case 'w':
+  case 'w': // C#4/ Db4
     drawKeys(gRenderer);
     sharpOne.colorSharp(gRenderer);
+    playtheNote(277.18);
     break;
-  case 'e':
+  case 'e': // D#4/ Eb4
     drawKeys(gRenderer);
     sharpTwo.colorSharp(gRenderer);
+    playtheNote(311.13);
     break;
-  case 't':
+  case 't': // F#4/ Gb4
     drawKeys(gRenderer);
     sharpThree.colorSharp(gRenderer);
+    playtheNote(369.99);
     break;
-  case 'y':
+  case 'y': // G#4/ Ab4
     drawKeys(gRenderer);
     sharpFour.colorSharp(gRenderer);
+    playtheNote(415.30);
     break;
-  case 'u':
+  case 'u': // A#4/ Bb4
     drawKeys(gRenderer);
     sharpFive.colorSharp(gRenderer);
+    playtheNote(466.16);
     break;
-  case 'o':
+  case 'o': // C#5/ Db5
     drawKeys(gRenderer);
     sharpSix.colorSharp(gRenderer);
+    playtheNote(554.37);
     break;
-  case 'p':
+  case 'p': // D#5/ Eb5
     drawKeys(gRenderer);
     sharpSeven.colorSharp(gRenderer);
+    playtheNote(622.25);
     break;
  }
   SDL_RenderPresent(gRenderer);
