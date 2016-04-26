@@ -1,5 +1,5 @@
-#ifndef piano_H
-#define piano_H
+#ifndef PIANO_H
+#define PIANO_H
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -126,6 +126,7 @@ void Piano::handleKeyPress(SDL_Renderer* gRenderer, SDL_Event e){
   case 'h':
     keySix.colorKey(gRenderer);
     drawSharps(gRenderer);
+    playtheNote(440.00);
     break;
   case 'j':
     keySeven.colorKey(gRenderer);
@@ -205,6 +206,9 @@ void Piano::playtheNote(float freq){
       goto cleanup;
     }
   }
+
+  cleanup:
+    delete dac;
 }
 
 #endif

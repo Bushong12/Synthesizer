@@ -15,11 +15,12 @@ DEFS     =   -DHAVE_GETTIMEOFDAY -D__MACOSX_CORE__
 DEFS    += -D__LITTLE_ENDIAN__
 CFLAGS   = -O3 -Wall -w
 CFLAGS  += -I$(INCLUDE) -I$(INCLUDE)/../src/include
-LIBRARY = -lpthread -framework CoreAudio -framework CoreFoundation -framework CoreMidi -lSDL2 -lSDL2_image
+LIBRARY = -lpthread -framework CoreAudio -framework CoreFoundation -framework CoreMidi -lSDL2 -lSDL2_image -lstk
 
 REALTIME = yes
 ifeq ($(REALTIME),yes)
-  PROGRAMS += play record audioprobe midiprobe duplex inetIn inetOut rtsine playscales crtsine bethree controlbee threebees playsmf grains
+#  PROGRAMS += play record audioprobe midiprobe duplex inetIn inetOut rtsine playscales crtsine bethree controlbee threebees playsmf grains
+	PROGRAMS += main
 endif
 
 RAWWAVES = 
@@ -54,7 +55,17 @@ strip :
 	strip $(PROGRAMS)
 
 main.o: main.cpp piano.h key.h sharp.h
-	g++ -c main.cpp
+	$(CC) $(LDFLAGS) $(CFLAGS) -w -lSDL2 -lSDL2_image -c main.cpp
 
-piano: main.o Stk.o SineWave.o RtWvOut.o RtAudio.o Mutex.o
+main: main.o Stk.o SineWave.o RtWvOut.o RtAudio.o Mutex.o
 	$(CC) $(LDFLAGS) -w -lSDL2 -lSDL2_image $(CFLAGS) $(DEFS) -o main main.cpp $(OBJECT_PATH)/Stk.o $(OBJECT_PATH)/SineWave.o $(OBJECT_PATH)/RtWvOut.o $(OBJECT_PATH)/RtAudio.o $(OBJECT_PATH)/Mutex.o $(LIBRARY)
+
+sine: sine.cpp Stk.o SineWave.o FileWrite.o FileWvOut.o
+	$(CC) $(LDFLAGS) $(CFLAGS) $(DEFS) -o sine sine.cpp $(OBJECT_PATH)/Stk.o $(OBJECT_PATH)/SineWave.o $(OBJECT_PATH)/FileWrite.o $(OBJECT_PATH)/FileWvOut.o $(LIBRARY)
+
+sineosc: sineosc.cpp Stk.o FileRead.o FileWvIn.o FileLoop.o FileWrite.o FileWvOut.o
+	$(CC) $(LDFLAGS) $(CFLAGS) $(DEFS) -o sineosc sineosc.cpp $(OBJECT_PATH)/Stk.o $(OBJECT_PATH)/FileWrite.o $(OBJECT_PATH)/FileRead.o $(OBJECT_PATH)/FileWvIn.o $(OBJECT_PATH)/FileWvOut.o $(OBJECT_PATH)/FileLoop.o $(LIBRARY)
+
+foursine: foursine.cpp Stk.o SineWave.o FileWrite.o FileWvOut.o
+	$(CC) $(LDFLAGS) $(CFLAGS) $(DEFS) -o foursine foursine.cpp $(OBJECT_PATH)/Stk.o $(OBJECT_PATH)/SineWave.o $(OBJECT_PATH)/FileWrite.o $(OBJECT_PATH)/FileWvOut.o $(LIBRARY)
+
