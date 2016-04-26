@@ -54,6 +54,7 @@ void Record::Play(){
 	SineWave sine;
 	RtWvOut *dac = 0;
 
+	//iterate through each note stored in the set
 	for(It=Recorded.begin(); It!=Recorded.end(); ++It){
 		//play the note
 		double note = It->second;
