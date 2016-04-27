@@ -1,3 +1,7 @@
+/*
+header file containing class defition and functions for the piano class
+*/
+
 #ifndef PIANO_H
 #define PIANO_H
 
@@ -8,22 +12,22 @@
 #include <cmath>
 #include "key.h"
 #include "sharp.h"
-//#include "record.h"
 #include "stk/SineWave.h"
 #include "stk/RtWvOut.h"
 #include <cstdlib>
 
 using namespace stk;
 
-class Piano {
+class Piano {//piano class
  public:
-  Piano(SDL_Renderer *);
-  void drawKeys(SDL_Renderer *);
-  void drawSharps(SDL_Renderer *);
-  void drawWholePiano(SDL_Renderer *);
-  void handleKeyPress(SDL_Renderer *, SDL_Event e);
-  void playtheNote(float freq);
+  Piano(SDL_Renderer *); //default constructor
+  void drawKeys(SDL_Renderer *); //function draws the piano keys
+  void drawSharps(SDL_Renderer *); //function draws the piano sharps
+  void drawWholePiano(SDL_Renderer *); //function draws the piano
+  void handleKeyPress(SDL_Renderer *, SDL_Event e); //funtion handles key press
+  void playtheNote(float freq); //function plays the note
  private:
+ 	//creates each of the ten keys and seven sharps as objects in the piano class
 	Key keyOne;
 	Key keyTwo;
 	Key keyThree;
@@ -41,10 +45,9 @@ class Piano {
 	Sharp sharpFive;
 	Sharp sharpSix;
 	Sharp sharpSeven;
-//	Record myRecording;
-//	bool doRecord = false;
 };
 
+//default constructor sets x position and y position for each of the ten keys and seven sharps
 Piano::Piano(SDL_Renderer* gRenderer){
 	keyOne.setVals(30,30);
 	keyTwo.setVals(90,30);
@@ -65,7 +68,7 @@ Piano::Piano(SDL_Renderer* gRenderer){
 	sharpSeven.setVals(555,30);
 }
 
-
+//function draws each of the keys with drawOneKey function from the key class
 void Piano::drawKeys(SDL_Renderer* gRenderer){
 	keyOne.drawOneKey(gRenderer);
 	keyTwo.drawOneKey(gRenderer);
@@ -79,6 +82,7 @@ void Piano::drawKeys(SDL_Renderer* gRenderer){
 	keyTen.drawOneKey(gRenderer);
 }
 
+//function draws each of the sharps with drawOneSharp function from the sharp class
 void Piano::drawSharps(SDL_Renderer* gRenderer){
 	sharpOne.drawOneSharp(gRenderer);
 	sharpTwo.drawOneSharp(gRenderer);
@@ -89,31 +93,29 @@ void Piano::drawSharps(SDL_Renderer* gRenderer){
 	sharpSeven.drawOneSharp(gRenderer);
 }
 
+//function draws the entire piano
 void Piano::drawWholePiano(SDL_Renderer* gRenderer){
-  SDL_Rect screenRect = {0, 0, 700, 500};
-  SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 255);
-  SDL_RenderFillRect(gRenderer, &screenRect);
-  SDL_Rect outlineRect = {30, 30, 600, 450};
-  SDL_SetRenderDrawColor(gRenderer, 0, 0, 100, 100);
-  SDL_RenderDrawRect(gRenderer, &outlineRect);
-  drawKeys(gRenderer);
-  drawSharps(gRenderer);
+  SDL_Rect screenRect = {0, 0, 700, 500}; //creates the screen rectangle
+  SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 255); //changes SDL drawing color
+  SDL_RenderFillRect(gRenderer, &screenRect); //fills rectangle 
+  SDL_Rect outlineRect = {30, 30, 600, 450}; //outlines rectangle
+  SDL_SetRenderDrawColor(gRenderer, 0, 0, 100, 100); //changes SDL drawing color
+  SDL_RenderDrawRect(gRenderer, &outlineRect); //draws rectangle
+  drawKeys(gRenderer); //draws the keys by using the drawKeys function above
+  drawSharps(gRenderer); //draws the sharps by using the drawSharps function above
 }
 
+//function that handles key press
 void Piano::handleKeyPress(SDL_Renderer* gRenderer, SDL_Event e){
   int value=0, freq = 0;
 
-  //record if doRecord is true
-/*  if (doRecord){
-    myRecording.AddKey(e.key.keysym.sym, 10000); //right now just arbitrary number
-    //change arbitrary number depending on how we deal with key presses
-  }*/
-
-  // case statement for key presses (color key and play sound)
+  // case statement for key presses (color key and set frequency)
+  // when a key needs to be colored, it colors the key and draws the sharp
+  // when a sharp needs to be colored, it draws the keys and colors the sharp
   switch(e.key.keysym.sym){
   case 'a': // Middle C (C4)
     keyOne.colorKey(gRenderer);
-    drawSharps(gRenderer); //might need to call this in color function? 
+    drawSharps(gRenderer); 
     freq=261.63;             
     break;
   case 's': // D4
@@ -196,14 +198,10 @@ void Piano::handleKeyPress(SDL_Renderer* gRenderer, SDL_Event e){
     sharpSeven.colorSharp(gRenderer);
     freq=622.25;
     break;
-/*  case '1': //start recording
-    doRecord = true;
-  case '2': //start playing
-    myRecording.Play();*/
  }
-  SDL_RenderPresent(gRenderer);
-  playtheNote(freq);
-  SDL_Delay(500);
+  SDL_RenderPresent(gRenderer); //renders to screen
+  playtheNote(freq); //plays appropriate note
+  SDL_Delay(500); //delays
 }
 
 void Piano::playtheNote(float freq){
