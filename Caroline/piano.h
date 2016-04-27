@@ -98,97 +98,98 @@ void Piano::drawWholePiano(SDL_Renderer* gRenderer){
 }
 
 void Piano::handleKeyPress(SDL_Renderer* gRenderer, SDL_Event e){
-  int value=0;
+  int value=0, freq = 0;
 
   // case statement for key presses (color key and play sound)
   switch(e.key.keysym.sym){
   case 'a': // Middle C (C4)
     keyOne.colorKey(gRenderer);
     drawSharps(gRenderer); //might need to call this in color function? 
-    playtheNote(261.63);             
+    freq=261.63;             
     break;
   case 's': // D4
     keyTwo.colorKey(gRenderer);
     drawSharps(gRenderer);
-    playtheNote(293.66);
+    freq=293.66;
     break;
   case 'd': // E4
     keyThree.colorKey(gRenderer);
     drawSharps(gRenderer);
-    playtheNote(329.63);
+    freq=329.63;
     break;
   case 'f': // F4
     keyFour.colorKey(gRenderer);
     drawSharps(gRenderer);
-    playtheNote(349.23);
+    freq=349.23;
     break;
   case 'g': // G4
     keyFive.colorKey(gRenderer);
     drawSharps(gRenderer);
-    playtheNote(392.00);
+    freq=392.00;
     break;
   case 'h': // A4 (tuning pitch)
     keySix.colorKey(gRenderer);
     drawSharps(gRenderer);
-    playtheNote(440.00);
+    freq=440.00;
     break;
   case 'j': // B4
     keySeven.colorKey(gRenderer);
     drawSharps(gRenderer);
-    playtheNote(493.88);
+    freq=493.88;
     break;
   case 'k': // C5
     keyEight.colorKey(gRenderer);
     drawSharps(gRenderer);
-    playtheNote(523.25);
+    freq=523.25;
     break;
   case 'l': // D5
     keyNine.colorKey(gRenderer);
     drawSharps(gRenderer);
-    playtheNote(587.33);
+    freq=587.33;
     break;
   case ';': // E5
     keyTen.colorKey(gRenderer);
     drawSharps(gRenderer);
-    playtheNote(659.25);
+    freq=659.25;
     break;
   case 'w': // C#4/ Db4
     drawKeys(gRenderer);
     sharpOne.colorSharp(gRenderer);
-    playtheNote(277.18);
+    freq=277.18;
     break;
   case 'e': // D#4/ Eb4
     drawKeys(gRenderer);
     sharpTwo.colorSharp(gRenderer);
-    playtheNote(311.13);
+    freq=311.13;
     break;
   case 't': // F#4/ Gb4
     drawKeys(gRenderer);
     sharpThree.colorSharp(gRenderer);
-    playtheNote(369.99);
+    freq=369.99;
     break;
   case 'y': // G#4/ Ab4
     drawKeys(gRenderer);
     sharpFour.colorSharp(gRenderer);
-    playtheNote(415.30);
+    freq=415.30;
     break;
   case 'u': // A#4/ Bb4
     drawKeys(gRenderer);
     sharpFive.colorSharp(gRenderer);
-    playtheNote(466.16);
+    freq=466.16;
     break;
   case 'o': // C#5/ Db5
     drawKeys(gRenderer);
     sharpSix.colorSharp(gRenderer);
-    playtheNote(554.37);
+    freq=554.37;
     break;
   case 'p': // D#5/ Eb5
     drawKeys(gRenderer);
     sharpSeven.colorSharp(gRenderer);
-    playtheNote(622.25);
+    freq=622.25;
     break;
  }
   SDL_RenderPresent(gRenderer);
+  playtheNote(freq);
   SDL_Delay(500);
 }
 
