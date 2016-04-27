@@ -8,7 +8,7 @@
 #include <cmath>
 #include "key.h"
 #include "sharp.h"
-#include "record.h"
+//#include "record.h"
 #include "stk/SineWave.h"
 #include "stk/RtWvOut.h"
 #include <cstdlib>
@@ -41,8 +41,8 @@ class Piano {
 	Sharp sharpFive;
 	Sharp sharpSix;
 	Sharp sharpSeven;
-	Record myRecording;
-	bool doRecord = False;
+//	Record myRecording;
+//	bool doRecord = false;
 };
 
 Piano::Piano(SDL_Renderer* gRenderer){
@@ -104,10 +104,10 @@ void Piano::handleKeyPress(SDL_Renderer* gRenderer, SDL_Event e){
   int value=0;
 
   //record if doRecord is true
-  if (doRecord){
+/*  if (doRecord){
     myRecording.AddKey(e.key.keysym.sym, 10000); //right now just arbitrary number
     //change arbitrary number depending on how we deal with key presses
-  }
+  }*/
 
   // case statement for key presses (color key and play sound)
   switch(e.key.keysym.sym){
@@ -196,10 +196,10 @@ void Piano::handleKeyPress(SDL_Renderer* gRenderer, SDL_Event e){
     sharpSeven.colorSharp(gRenderer);
     playtheNote(622.25);
     break;
-  case '1': //start recording
-    doRecord = True;
+/*  case '1': //start recording
+    doRecord = true;
   case '2': //start playing
-    myRecording.Play();
+    myRecording.Play();*/
  }
   SDL_RenderPresent(gRenderer);
   SDL_Delay(500);
