@@ -19,7 +19,7 @@ class Record{
 
 	private:
 		vector< pair<string, double> > Recorded;
-		map<string, double> Notes;
+		map<string, double> Notes;	//contains data of frequency that matches a key on the keyboard
 		SineWave sine;
 };
 

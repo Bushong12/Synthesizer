@@ -5,8 +5,8 @@
 #include "stk/SineWave.h"
 #include "stk/RtWvOut.h"
 #include "record.h"
+
 using namespace std;
-using namespace stk;
 
 //default constructor
 Record::Record(){
@@ -42,15 +42,15 @@ Record::Record(){
 }
 
 //add key to the vector Recorded
-void Record::AddKey(string key, double length){
-	pair<string, double> tempPair;
+void Record::AddKey(char key, double length){
+	pair<char, double> tempPair;
 	tempPair = make_pair(key, length);
 	Recorded.push_back(tempPair);
 }
 
 //play the notes
 void Record::Play(){
-	vector< pair<string, double> >::iterator It;
+	vector< pair<char, double> >::iterator It;
 	SineWave sine;
 	RtWvOut *dac = 0;
 
